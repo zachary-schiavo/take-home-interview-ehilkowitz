@@ -18,7 +18,7 @@ public class ScheduledTransferController {
 
     @Resource
     private ScheduledTransferService scheduledTransferService;
-
+    //CREATE scheduled transfer endpoint
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/transfers")
     public CreateScheduledTransferResponse create(@RequestBody @Valid CreateScheduledTransferRequest request){
@@ -28,5 +28,19 @@ public class ScheduledTransferController {
         return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
 
     }
+
+    //GET scheduled transfer "/transfer/{parameter}"
+
+
+
+
+
+    //PUT/UPDATE scheduled transfer
+
+    
+
+
+
+    //DELETE scheduled transfer
 
 }
