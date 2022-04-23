@@ -29,18 +29,25 @@ public class ScheduledTransferController {
 
     }
 
-    //GET scheduled transfer "/transfer/{parameter}"
+    //GET scheduled transfer "/transfer/{parameter}" for account 987654321
 
 
 
 
 
-    //PUT/UPDATE scheduled transfer
+    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number
+    //    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    //    @PostMapping("/transfers")
 
-    
 
 
 
-    //DELETE scheduled transfer
+    //DELETE scheduled transfer as long as the date is in the future
+    // @ResponseStatus(code = HttpStatus.ACCEPTED)
+    // @PostMapping("/transfers")
+
+
+    //SOFT DELETE for transfer via confirmation number - action 'Cancel' isCancel Boolean
+    //WILL need to add additional column in table to soft delete
 
 }
