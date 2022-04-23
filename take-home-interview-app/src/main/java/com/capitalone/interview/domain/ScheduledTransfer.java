@@ -20,7 +20,7 @@ import java.util.UUID;
 @Table(name="scheduled_transfers")
 public class ScheduledTransfer {
 
-    @Id
+    @Id //pk
     @Type(type="uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(

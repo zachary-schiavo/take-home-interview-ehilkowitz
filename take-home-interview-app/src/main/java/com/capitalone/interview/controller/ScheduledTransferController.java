@@ -3,21 +3,24 @@ package com.capitalone.interview.controller;
 import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.model.CreateScheduledTransferResponse;
+import com.capitalone.interview.repository.ScheduledTransferRepository;
 import com.capitalone.interview.service.ScheduledTransferService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ScheduledTransferController {
 
     @Resource
     private ScheduledTransferService scheduledTransferService;
+
+//    private ScheduledTransferRepository scheduledTransferRepository;
+
     //CREATE scheduled transfer endpoint
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/transfers")
@@ -30,7 +33,14 @@ public class ScheduledTransferController {
     }
 
     //GET scheduled transfer "/transfer/{parameter}" for account 987654321
-
+//    @RequestMapping(value = "/transfers", method = RequestMethod.GET)
+//    public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(String toAccountNumber){
+//
+//        List<ScheduledTransfer> scheduledTransfers = new ArrayList<>();
+//
+//        return scheduledTransfers;
+//
+//    }
 
 
 
