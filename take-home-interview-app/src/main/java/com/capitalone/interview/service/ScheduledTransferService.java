@@ -35,20 +35,21 @@ public class ScheduledTransferService {
 
     }
 
-    public ScheduledTransfer getScheduledTransferbyUUID(){
+//    public ScheduledTransfer getScheduledTransferbyUUID(UUID id){
+//
+//        return transfersRepository.findByUUID(this.id);
+//    }
 
-        return transfersRepository.findByUUID(id);
+    public List<ScheduledTransfer> getScheduledTransfersBy(String id){
+
+        return transfersRepository.findAll();
+
     }
 
-    public List<ScheduledTransfer> getScheduledTransfersBy(){
-
-        return transfersRepository.getByToAccountNumberOrFromAccountNumber(toAccountNumber, fromAccountNumber);
-
-    }
-
-    public void deleteByUUID(UUID id){
-
-         transfersRepository.deleteById(id);
-    }
+//    public void deleteByUUID(UUID id){
+//
+//         transfersRepository.deleteById(id);
+//
+//    }
 
 }

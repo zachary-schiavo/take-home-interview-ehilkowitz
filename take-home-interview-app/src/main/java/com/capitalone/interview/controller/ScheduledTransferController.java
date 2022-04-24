@@ -9,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.security.auth.login.AccountNotFoundException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ScheduledTransferController {
@@ -19,7 +21,7 @@ public class ScheduledTransferController {
     @Resource
     private ScheduledTransferService scheduledTransferService;
 
-//    private ScheduledTransferRepository scheduledTransferRepository;
+     private ScheduledTransferRepository scheduledTransferRepository;
 
     //CREATE scheduled transfer endpoint
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -31,16 +33,14 @@ public class ScheduledTransferController {
         return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
 
     }
-    //TODO GET findall
-    //GET scheduled transfer "/transfer/{parameter}" for account 987654321
-//    @RequestMapping(value = "/transfers", method = RequestMethod.GET)
-//    public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(String toAccountNumber){
-//
-//        List<ScheduledTransfer> scheduledTransfers = new ArrayList<>();
-//
-//        return scheduledTransfers;
-//
-//    }
+//    TODO GET findall
+//    GET scheduled transfer "/transfer/{parameter}" for account 987654321 which return all 3 transfers
+    @RequestMapping(value = "/transfers/{id}", method = RequestMethod.GET)
+    public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(@PathVariable("id") String id){
+
+            return scheduledTransferService.getScheduledTransfersBy(id);
+
+    }
 
 
 
@@ -51,10 +51,16 @@ public class ScheduledTransferController {
 
 
 
-    //TODO delete schedule transfers
-    //DELETE scheduled transfer as long as the date is in the future
-    // @ResponseStatus(code = HttpStatus.ACCEPTED)
-    // @DeleteMapping("/transfers/{id}")
+//    //TODO delete schedule transfers
+//    //DELETE scheduled transfer as long as the date is in the future
+//    @ResponseStatus(code = HttpStatus.ACCEPTED)
+//    @DeleteMapping("/transfers/{id}")
+//    public String deleteScheduleTransfer(@PathVariable("id") UUID id){
+//
+//       scheduledTransferService.deleteByUUID(id);
+//
+//       return "Scheduled Transfer UUID :" + id + " has been deleted";
+//    }
 
 
     //TODO Offer a soft delete method as alt to delete.
