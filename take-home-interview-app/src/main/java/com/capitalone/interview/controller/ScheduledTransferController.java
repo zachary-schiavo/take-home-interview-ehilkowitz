@@ -4,14 +4,13 @@ import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.model.CreateScheduledTransferResponse;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
+import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import com.capitalone.interview.service.ScheduledTransferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.security.auth.login.AccountNotFoundException;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,20 +18,24 @@ import java.util.UUID;
 public class ScheduledTransferController {
 
     @Resource
-    private ScheduledTransferService scheduledTransferService;
+     private ScheduledTransferService scheduledTransferService;
 
      private ScheduledTransferRepository scheduledTransferRepository;
+
+     private ScheduledTransferUpdateRepository updateRepository;
 
     //CREATE scheduled transfer endpoint
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/transfers")
     public CreateScheduledTransferResponse create(@RequestBody @Valid CreateScheduledTransferRequest request){
 
-        ScheduledTransfer scheduledTransfer = scheduledTransferService.createScheduledTransfer(request);
 
-        return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
+            ScheduledTransfer scheduledTransfer = scheduledTransferService.createScheduledTransfer(request);
+
+            return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
 
     }
+
 //    TODO GET findall
 //    GET scheduled transfer "/transfer/{parameter}" for account 987654321 which return all 3 transfers
     @RequestMapping(value = "/transfers/{id}", method = RequestMethod.GET)
@@ -44,23 +47,38 @@ public class ScheduledTransferController {
 
 
 
-    //TODO Update scheduled transfer memo, start date, and amount via confirmation number
-    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
-    //    @ResponseStatus(code = HttpStatus.ACCEPTED)
-    //    @PutMapping("/transfers/{id}")
-
-
-
-//    //TODO delete schedule transfers
-//    //DELETE scheduled transfer as long as the date is in the future
+//    //TODO Update scheduled transfer memo, start date, and amount via confirmation number
+//    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
 //    @ResponseStatus(code = HttpStatus.ACCEPTED)
-//    @DeleteMapping("/transfers/{id}")
-//    public String deleteScheduleTransfer(@PathVariable("id") UUID id){
+//    @PutMapping("/transfers/{id}")
+//    public ScheduledTransfer updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody UpdateScheduledTransferRequest updateRequest){
 //
-//       scheduledTransferService.deleteByUUID(id);
+//        ScheduledTransfer updateTransfer = scheduledTransferService.findScheduledTransferByUUID(id);
 //
-//       return "Scheduled Transfer UUID :" + id + " has been deleted";
+//        updateTransfer.setId(updateRequest.getId());
+//        updateTransfer.setAmount(updateRequest.getAmount());
+//        updateTransfer.setMemo(updateRequest.getMemo());
+//        updateTransfer.setTransferDate(updateRequest.getTransferDate());
+//
+//        System.out.println("Scheduled Transfer UUID :" + id + " has been updated");
+//        return scheduledTransferRepository.save(updateTransfer);
+//
 //    }
+
+
+
+    //TODO delete schedule transfers
+    //DELETE scheduled transfer as long as the date is in the future
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @DeleteMapping("/transfers/delete/{id}")
+    public String deleteScheduleTransfer(@PathVariable("id") UUID id){
+
+       scheduledTransferService.deleteByUUID(id);
+
+
+       return "Scheduled Transfer UUID :" + id + " has been deleted";
+
+    }
 
 
     //TODO Offer a soft delete method as alt to delete.

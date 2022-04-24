@@ -4,6 +4,7 @@ import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.exception.ConversionException;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
+import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
@@ -25,31 +26,44 @@ public class ScheduledTransferService {
     @Resource
     ConversionService conversionService;
 
+    @Resource
+    ScheduledTransferUpdateRepository updateRepository;
+
     public ScheduledTransfer createScheduledTransfer(CreateScheduledTransferRequest request) {
+//        ScheduledTransfer result= null;
+//
+//        if ((request.getToAccountNumber() != null)
+//                && (request.getFromAccountNumber() != null)
+//                && (request.getTransferDate() != null)) {
 
-        ScheduledTransfer convertedTransfer =
-                Optional.ofNullable(conversionService.convert(request, ScheduledTransfer.class))
-                .orElseThrow(ConversionException::new);
+            ScheduledTransfer convertedTransfer =
+                    Optional.ofNullable(conversionService.convert(request, ScheduledTransfer.class))
+                            .orElseThrow(ConversionException::new);
 
-        return transfersRepository.save(convertedTransfer);
+            return   transfersRepository.save(convertedTransfer);
 
     }
 
-//    public ScheduledTransfer getScheduledTransferbyUUID(UUID id){
-//
-//        return transfersRepository.findByUUID(this.id);
-//    }
 
     public List<ScheduledTransfer> getScheduledTransfersBy(String id){
 
         return transfersRepository.findAll();
 
+
     }
 
-//    public void deleteByUUID(UUID id){
-//
-//         transfersRepository.deleteById(id);
-//
+
+//    public ScheduledTransfer findScheduledTransferByUUID(UUID id){
+//        return updateRepository.findByUUID(id);
 //    }
+
+
+    //ADD logic for not allowing past date scheduled transfers from being deleted.
+
+    public void deleteByUUID(UUID id){
+
+         updateRepository.deleteById(id);
+
+    }
 
 }

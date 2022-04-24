@@ -13,6 +13,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -27,7 +28,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
   </component>
-  <component name="RunManager" selected="JUnit.CucumberRunner">
+  <component name="RunManager" selected="Application.SpringBootInterviewTakeHomeApplication">
     <configuration name="SpringBootInterviewTakeHomeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.capitalone.interview.SpringBootInterviewTakeHomeApplication" />
       <module name="take-home-interview-app" />
@@ -103,11 +104,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CucumberRunner" />
         <item itemvalue="Application.SpringBootInterviewTakeHomeApplication" />
+        <item itemvalue="JUnit.CucumberRunner" />
         <item itemvalue="JUnit.SpringBootInterviewTakeHomeApplicationTests" />
-        <item itemvalue="JUnit.ScheduledTransferServiceTest" />
         <item itemvalue="JUnit.ScheduledTransferControllerTest" />
+        <item itemvalue="JUnit.ScheduledTransferServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -121,5 +122,13 @@
       <updated>1650753369901</updated>
     </task>
     <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/take_home_interview_ehilkowitz$ScheduledTransferControllerTest.ic" NAME="ScheduledTransferControllerTest Coverage Results" MODIFIED="1650818319249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.capitalone.interview.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/take_home_interview_ehilkowitz$SpringBootInterviewTakeHomeApplicationTests.ic" NAME="SpringBootInterviewTakeHomeApplicationTests Coverage Results" MODIFIED="1650817709256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.capitalone.interview.*</FILTER>
+    </SUITE>
   </component>
 </project>

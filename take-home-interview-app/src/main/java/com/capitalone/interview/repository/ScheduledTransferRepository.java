@@ -19,11 +19,11 @@ public interface ScheduledTransferRepository extends JpaRepository<ScheduledTran
 
     List<ScheduledTransfer> getByToAccountNumberOrFromAccountNumber(String toAccountNumber, String fromAccountNumber);
 
-//    ScheduledTransfer findByUUID(UUID id);
-//
-////    //delete by confirmation number
-////    void deleteById(UUID id);
-////
+////    ScheduledTransfer findByUUID(UUID id);
+//// //TODO clean up code
+//    //delete by confirmation number
+    void deleteById(UUID id);
+
 
 
 }
