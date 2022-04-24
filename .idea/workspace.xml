@@ -57,7 +57,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ScheduledTransferControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ScheduledTransferControllerTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="take-home-interview-app" />
       <extension name="coverage">
         <pattern>
@@ -107,7 +107,6 @@
         <item itemvalue="Application.SpringBootInterviewTakeHomeApplication" />
         <item itemvalue="JUnit.CucumberRunner" />
         <item itemvalue="JUnit.SpringBootInterviewTakeHomeApplicationTests" />
-        <item itemvalue="JUnit.ScheduledTransferControllerTest" />
         <item itemvalue="JUnit.ScheduledTransferServiceTest" />
       </list>
     </recent_temporary>

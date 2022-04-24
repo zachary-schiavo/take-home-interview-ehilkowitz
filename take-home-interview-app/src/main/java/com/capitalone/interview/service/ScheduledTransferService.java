@@ -9,6 +9,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,11 +31,7 @@ public class ScheduledTransferService {
     ScheduledTransferUpdateRepository updateRepository;
 
     public ScheduledTransfer createScheduledTransfer(CreateScheduledTransferRequest request) {
-//        ScheduledTransfer result= null;
-//
-//        if ((request.getToAccountNumber() != null)
-//                && (request.getFromAccountNumber() != null)
-//                && (request.getTransferDate() != null)) {
+
 
             ScheduledTransfer convertedTransfer =
                     Optional.ofNullable(conversionService.convert(request, ScheduledTransfer.class))
@@ -53,6 +50,14 @@ public class ScheduledTransferService {
     }
 
 
+    public ScheduledTransfer updateScheduledTransferByUUID(ScheduledTransfer updateTransfer, UUID id) {
+
+            return transfersRepository.save(updateTransfer);
+
+    }
+
+
+
 //    public ScheduledTransfer findScheduledTransferByUUID(UUID id){
 //        return updateRepository.findByUUID(id);
 //    }
@@ -61,8 +66,11 @@ public class ScheduledTransferService {
     //ADD logic for not allowing past date scheduled transfers from being deleted.
 
     public void deleteByUUID(UUID id){
+        //logic for date
+//        ScheduledTransfer transfer = updateRepository.findByUUID(id);
+//        if(transfer.getTransferDate().isAfter(LocalDate.now()) ) {}
 
-         updateRepository.deleteById(id);
+        updateRepository.deleteById(id);
 
     }
 

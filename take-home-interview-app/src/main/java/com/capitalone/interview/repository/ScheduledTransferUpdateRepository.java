@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface ScheduledTransferUpdateRepository extends JpaRepository<ScheduledTransfer, UUID> {
 
-    //    ScheduledTransfer findByUUID(UUID id);
+
 
 //    ScheduledTransfer findByUUID(UUID id);
 

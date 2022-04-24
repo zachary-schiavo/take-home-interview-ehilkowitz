@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,34 +48,29 @@ public class ScheduledTransferController {
 
 
 
-//    //TODO Update scheduled transfer memo, start date, and amount via confirmation number
-//    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
-//    @ResponseStatus(code = HttpStatus.ACCEPTED)
-//    @PutMapping("/transfers/{id}")
-//    public ScheduledTransfer updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody UpdateScheduledTransferRequest updateRequest){
-//
-//        ScheduledTransfer updateTransfer = scheduledTransferService.findScheduledTransferByUUID(id);
-//
-//        updateTransfer.setId(updateRequest.getId());
-//        updateTransfer.setAmount(updateRequest.getAmount());
-//        updateTransfer.setMemo(updateRequest.getMemo());
-//        updateTransfer.setTransferDate(updateRequest.getTransferDate());
-//
-//        System.out.println("Scheduled Transfer UUID :" + id + " has been updated");
-//        return scheduledTransferRepository.save(updateTransfer);
-//
-//    }
+    //TODO Update scheduled transfer memo, start date, and amount via confirmation number
+    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @PutMapping("/transfers/{id}")
+    public ScheduledTransfer updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
+
+        if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
+
+            System.out.println("Scheduled Transfer UUID :" + id + " has been updated");
+            return scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
+        }
+        return null;
+    }
 
 
 
     //TODO delete schedule transfers
     //DELETE scheduled transfer as long as the date is in the future
-    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @DeleteMapping("/transfers/delete/{id}")
     public String deleteScheduleTransfer(@PathVariable("id") UUID id){
 
        scheduledTransferService.deleteByUUID(id);
-
 
        return "Scheduled Transfer UUID :" + id + " has been deleted";
 
