@@ -8,10 +8,16 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ScheduledTransferService {
+
+    private UUID id;
+    private String toAccountNumber;
+    private String fromAccountNumber;
 
     @Resource
     ScheduledTransferRepository transfersRepository;
@@ -28,4 +34,21 @@ public class ScheduledTransferService {
         return transfersRepository.save(convertedTransfer);
 
     }
+
+    public ScheduledTransfer getScheduledTransferbyUUID(){
+
+        return transfersRepository.findByUUID(id);
+    }
+
+    public List<ScheduledTransfer> getScheduledTransfersBy(){
+
+        return transfersRepository.getByToAccountNumberOrFromAccountNumber(toAccountNumber, fromAccountNumber);
+
+    }
+
+    public void deleteByUUID(UUID id){
+
+         transfersRepository.deleteById(id);
+    }
+
 }

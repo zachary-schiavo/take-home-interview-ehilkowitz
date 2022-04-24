@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+//JPA Entity Class
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

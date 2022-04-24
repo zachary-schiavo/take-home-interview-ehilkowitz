@@ -31,7 +31,7 @@ public class ScheduledTransferController {
         return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
 
     }
-
+    //TODO GET findall
     //GET scheduled transfer "/transfer/{parameter}" for account 987654321
 //    @RequestMapping(value = "/transfers", method = RequestMethod.GET)
 //    public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(String toAccountNumber){
@@ -44,20 +44,21 @@ public class ScheduledTransferController {
 
 
 
-
-    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number
+    //TODO Update scheduled transfer memo, start date, and amount via confirmation number
+    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
     //    @ResponseStatus(code = HttpStatus.ACCEPTED)
-    //    @PostMapping("/transfers")
+    //    @PutMapping("/transfers/{id}")
 
 
 
-
+    //TODO delete schedule transfers
     //DELETE scheduled transfer as long as the date is in the future
     // @ResponseStatus(code = HttpStatus.ACCEPTED)
-    // @PostMapping("/transfers")
+    // @DeleteMapping("/transfers/{id}")
 
 
+    //TODO Offer a soft delete method as alt to delete.
     //SOFT DELETE for transfer via confirmation number - action 'Cancel' isCancel Boolean
-    //WILL need to add additional column in table to soft delete
+    //WILL need to add additional column in table to soft delete, ALTER TABLE
 
 }
