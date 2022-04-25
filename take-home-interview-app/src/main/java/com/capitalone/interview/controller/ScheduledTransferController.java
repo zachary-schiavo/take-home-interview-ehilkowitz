@@ -1,3 +1,4 @@
+
 package com.capitalone.interview.controller;
 
 import com.capitalone.interview.domain.ScheduledTransfer;
@@ -23,11 +24,11 @@ import java.util.concurrent.ExecutionException;
 public class ScheduledTransferController {
 
     @Resource
-     private ScheduledTransferService scheduledTransferService;
+    private ScheduledTransferService scheduledTransferService;
 
-     private ScheduledTransferRepository scheduledTransferRepository;
+    private ScheduledTransferRepository scheduledTransferRepository;
 
-     private ScheduledTransferUpdateRepository updateRepository;
+    private ScheduledTransferUpdateRepository updateRepository;
 
 
     //CREATE scheduled transfer
@@ -36,9 +37,9 @@ public class ScheduledTransferController {
     public CreateScheduledTransferResponse create(@RequestBody @Valid CreateScheduledTransferRequest request){
 
 
-            ScheduledTransfer scheduledTransfer = scheduledTransferService.createScheduledTransfer(request);
+        ScheduledTransfer scheduledTransfer = scheduledTransferService.createScheduledTransfer(request);
 
-            return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
+        return CreateScheduledTransferResponse.builder().confirmationNumber(scheduledTransfer.getId()).build();
 
     }
 
@@ -47,7 +48,7 @@ public class ScheduledTransferController {
     @RequestMapping(value = "/transfers/{id}", method = RequestMethod.GET)
     public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(@PathVariable("id") String id){
 
-            return scheduledTransferService.getScheduledTransfersBy(id);
+        return scheduledTransferService.getScheduledTransfersBy(id);
 
     }
 
@@ -58,7 +59,7 @@ public class ScheduledTransferController {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @PutMapping("/transfers/{id}")
     public String updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
-    //prevents updating transfers that are passed date
+        //prevents updating transfers that are passed date
         if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
 
 
@@ -97,5 +98,23 @@ public class ScheduledTransferController {
     //TODO Offer a soft delete method as alt to delete.
     //SOFT DELETE for transfer via confirmation number - action 'Cancel' isCancel Boolean
     //WILL need to add additional column in table to soft delete, ALTER TABLE
+//    @ResponseStatus(code = HttpStatus.ACCEPTED)
+//    @PutMapping("/transfers/{id}")
+//    public String softDeleteScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
+//        //prevents updating transfers that are passed date
+//          if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
+//
+//
+//            scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
+//            return "Scheduled Transfer UUID :" + id + " has been deleted";
+//
+//          }if(updateTransfer.getTransferDate().isBefore(LocalDate.now())){
+//              return "Delete error, you cannot update a transfer date to a date that has already passed";
+//
+//          } else {
+//            return "Delete Error";
+//          }
+//        }
+
 
 }

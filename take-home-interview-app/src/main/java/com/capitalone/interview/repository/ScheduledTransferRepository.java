@@ -18,7 +18,7 @@ public interface ScheduledTransferRepository extends JpaRepository<ScheduledTran
 
     List<ScheduledTransfer> getByToAccountNumberOrFromAccountNumber(String toAccountNumber, String fromAccountNumber);
 
-    List<ScheduledTransfer> getByToAccountNumber(String toAccountNumber);
+
 
 
 }

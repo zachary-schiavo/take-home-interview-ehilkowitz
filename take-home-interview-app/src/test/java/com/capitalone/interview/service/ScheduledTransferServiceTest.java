@@ -1,9 +1,12 @@
 package com.capitalone.interview.service;
 
+import com.capitalone.interview.controller.ScheduledTransferController;
 import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.exception.ConversionException;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
+import com.capitalone.interview.model.CreateScheduledTransferResponse;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
+import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,9 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.convert.ConversionService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith({MockitoExtension.class})
@@ -28,6 +34,8 @@ class ScheduledTransferServiceTest {
 
     @Mock
     ScheduledTransferRepository mockedScheduledTransferRepository;
+
+
 
     @Test
     void testHappyPathCreateScheduledTransfer() {
@@ -85,6 +93,47 @@ class ScheduledTransferServiceTest {
 
         assertEquals(expectedErrorMessage, thrown.getMessage());
     }
+
+    @Test
+    void testGetSuccessByAccountNumberTo() {
+        //create scheduled transfer to test Get Method
+
+        CreateScheduledTransferRequest request = CreateScheduledTransferRequest.builder()
+                .toAccountNumber("123456789")
+                .fromAccountNumber("987654321")
+                .amount(BigDecimal.TEN)
+                .memo("foobar")
+                .build();
+
+        ScheduledTransfer scheduledTransfer = ScheduledTransfer.builder()
+                .toAccountNumber(request.getToAccountNumber())
+                .fromAccountNumber(request.getFromAccountNumber())
+                .amount(request.getAmount())
+                .memo(request.getMemo())
+                .build();
+
+        when(mockedConversionService.convert(request, ScheduledTransfer.class))
+                .thenReturn(scheduledTransfer);
+
+        UUID expectedUUID = UUID.randomUUID();
+        when(mockedScheduledTransferRepository.save(scheduledTransfer)).thenReturn(scheduledTransfer.toBuilder()
+                .id(expectedUUID)
+                .build());
+
+        ScheduledTransfer actual = scheduledTransferService.createScheduledTransfer(request);
+
+//       List<ScheduledTransfer> testList = new ArrayList<>();
+//
+//       testList = scheduledTransferService.getScheduledTransfersByAccountNumber("123456789");
+//
+//       List<ScheduledTransfer> testListTwo = mockedScheduledTransferRepository.getByToAccountNumberOrFromAccountNumber("123456789", "987654321");
+//
+//       System.out.println(testListTwo);
+
+    }
+
+
+
 
 
 }

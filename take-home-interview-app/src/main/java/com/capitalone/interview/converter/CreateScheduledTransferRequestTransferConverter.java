@@ -22,12 +22,6 @@ public class CreateScheduledTransferRequestTransferConverter implements Converte
                 .build();
     }
 
-    public ScheduledTransfer updateConvert(UpdateScheduledTransferRequest source){
-        return ScheduledTransfer.builder()
-                .amount(source.getAmount())
-                .memo(source.getMemo())
-                .transferDate(source.getTransferDate())
-                .build();
-    }
+
 
 }

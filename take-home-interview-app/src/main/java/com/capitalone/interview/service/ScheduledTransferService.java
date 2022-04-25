@@ -34,11 +34,11 @@ public class ScheduledTransferService {
     public ScheduledTransfer createScheduledTransfer(CreateScheduledTransferRequest request) {
 
 
-            ScheduledTransfer convertedTransfer =
-                    Optional.ofNullable(conversionService.convert(request, ScheduledTransfer.class))
-                            .orElseThrow(ConversionException::new);
+        ScheduledTransfer convertedTransfer =
+                Optional.ofNullable(conversionService.convert(request, ScheduledTransfer.class))
+                        .orElseThrow(ConversionException::new);
 
-            return   transfersRepository.save(convertedTransfer);
+        return   transfersRepository.save(convertedTransfer);
 
     }
 
@@ -53,7 +53,7 @@ public class ScheduledTransferService {
 
     public ScheduledTransfer updateScheduledTransferByUUID(ScheduledTransfer updateTransfer, UUID id) {
 
-            return transfersRepository.save(updateTransfer);
+        return transfersRepository.save(updateTransfer);
 
     }
 
@@ -69,9 +69,10 @@ public class ScheduledTransferService {
     public void deleteByUUID(UUID id) throws ExceptionUUIDNotFound {
         //logic for date
 
-            updateRepository.deleteById(id);
+        updateRepository.deleteById(id);
 
 
     }
 
 }
+

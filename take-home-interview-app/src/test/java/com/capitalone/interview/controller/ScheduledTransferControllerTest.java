@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,6 +52,71 @@ class ScheduledTransferControllerTest {
         CreateScheduledTransferResponse actualResponse = scheduledTransferController.create(testRequest);
 
         assertEquals(expectedId, actualResponse.getConfirmationNumber());
+    }
+
+    @Test
+    void createGetSuccess() {
+        //create scheduled transfer to test Get Method
+        CreateScheduledTransferRequest testRequest = CreateScheduledTransferRequest.builder()
+                .amount(BigDecimal.ONE)
+                .fromAccountNumber("123456789")
+                .toAccountNumber("987654321")
+                .memo("Savings")
+                .build();
+
+        UUID expectedId = UUID.randomUUID();
+        ScheduledTransfer scheduledTransfer = ScheduledTransfer.builder()
+                .amount(testRequest.getAmount())
+                .fromAccountNumber(testRequest.getFromAccountNumber())
+                .toAccountNumber(testRequest.getToAccountNumber())
+                .id(expectedId)
+                .build();
+
+        when(mockedScheduledTransferService.createScheduledTransfer(testRequest)).thenReturn(scheduledTransfer);
+
+        CreateScheduledTransferResponse actualResponse = scheduledTransferController.create(testRequest);
+
+        assertEquals(expectedId, actualResponse.getConfirmationNumber());
+
+        List<ScheduledTransfer> testScheduledTransfer = scheduledTransferController.getScheduledTransfersByAccountNumber("123456789");
+
+        assertNotNull(testScheduledTransfer);
+
+    }
+
+    @Test
+    void createGetFailure(){
+        //create scheduled transfer to test Get Method failure when AccountNumber is wrong
+        CreateScheduledTransferRequest testRequest = CreateScheduledTransferRequest.builder()
+                .amount(BigDecimal.ONE)
+                .fromAccountNumber("123456789")
+                .toAccountNumber("987654321")
+                .memo("Savings")
+                .build();
+
+        UUID expectedId = UUID.randomUUID();
+        ScheduledTransfer scheduledTransfer = ScheduledTransfer.builder()
+                .amount(testRequest.getAmount())
+                .fromAccountNumber(testRequest.getFromAccountNumber())
+                .toAccountNumber(testRequest.getToAccountNumber())
+                .id(expectedId)
+                .build();
+
+        when(mockedScheduledTransferService.createScheduledTransfer(testRequest)).thenReturn(scheduledTransfer);
+
+        CreateScheduledTransferResponse actualResponse = scheduledTransferController.create(testRequest);
+
+        assertEquals(expectedId, actualResponse.getConfirmationNumber());
+
+        //expected empty List
+        List<ScheduledTransfer> expected = new ArrayList<>();
+
+        //actual
+        List<ScheduledTransfer> testScheduledTransfer = scheduledTransferController.getScheduledTransfersByAccountNumber("");
+
+        assertEquals(expected, testScheduledTransfer);
+
+
     }
 
     @Test
