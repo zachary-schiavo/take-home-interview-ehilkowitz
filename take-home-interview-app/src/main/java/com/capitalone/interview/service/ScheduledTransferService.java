@@ -2,6 +2,7 @@ package com.capitalone.interview.service;
 
 import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.exception.ConversionException;
+import com.capitalone.interview.exception.ExceptionUUIDNotFound;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
 import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
@@ -65,7 +66,7 @@ public class ScheduledTransferService {
 
     //ADD logic for not allowing past date scheduled transfers from being deleted.
 
-    public void deleteByUUID(UUID id){
+    public void deleteByUUID(UUID id) throws ExceptionUUIDNotFound {
         //logic for date
 //        ScheduledTransfer transfer = updateRepository.findByUUID(id);
 //        if(transfer.getTransferDate().isAfter(LocalDate.now()) ) {}

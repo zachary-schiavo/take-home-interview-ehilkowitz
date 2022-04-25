@@ -53,13 +53,14 @@ public class ScheduledTransferController {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @PutMapping("/transfers/{id}")
     public ScheduledTransfer updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
-
+    //prevents updating transfers that are passed date
         if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
 
             System.out.println("Scheduled Transfer UUID :" + id + " has been updated");
             return scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
         }
         return null;
+        //add error message for date past
     }
 
 
