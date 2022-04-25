@@ -2,12 +2,14 @@
 package com.capitalone.interview.controller;
 
 import com.capitalone.interview.domain.ScheduledTransfer;
+import com.capitalone.interview.exception.ConversionException;
 import com.capitalone.interview.exception.ExceptionUUIDNotFound;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.model.CreateScheduledTransferResponse;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
 import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import com.capitalone.interview.service.ScheduledTransferService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,18 +55,18 @@ public class ScheduledTransferController {
     //PUT/UPDATE scheduled transfer  via confimation number -ID
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @PutMapping("/transfers/{id}")
-    public String updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
+    public String updateScheduleTransfer(@PathVariable("id") UUID id, @RequestBody ScheduledTransfer updateTransfer) throws ConversionException {
         //prevents updating transfers to a past date
+        if(id == null || updateTransfer.getId() == null){
+            throw new ExceptionUUIDNotFound("Confirmation Number not found");
+        }
         if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
 
             scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
             return "Scheduled Transfer UUID :" + id + " has been updated";
 
-        }if(updateTransfer.getTransferDate().isBefore(LocalDate.now())){
-            return "Update error, you cannot update a transfer date that has already passed";
-
         } else {
-            return "Update Error";
+            return "Update Error, cannot edit date to be in the past";
         }
 
     }
@@ -75,6 +77,8 @@ public class ScheduledTransferController {
     public String deleteScheduleTransfer(@PathVariable("id") UUID id) throws ExceptionUUIDNotFound{
 
             String response = null;
+//        if(id == null || updateTransfer.getId() == null){
+//            throw new ExceptionUUIDNotFound("Confirmation Number not found");
             try {
 
                 scheduledTransferService.deleteByUUID(id);
