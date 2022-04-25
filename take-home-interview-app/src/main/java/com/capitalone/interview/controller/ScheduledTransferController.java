@@ -5,8 +5,6 @@ import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.exception.ExceptionUUIDNotFound;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.model.CreateScheduledTransferResponse;
-import com.capitalone.interview.model.DeleteScheduledTransferResponse;
-import com.capitalone.interview.model.UpdateScheduledTransferResponse;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
 import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import com.capitalone.interview.service.ScheduledTransferService;
@@ -18,7 +16,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 public class ScheduledTransferController {
@@ -43,8 +40,8 @@ public class ScheduledTransferController {
 
     }
 
-
-    //GET scheduled transfer "/transfer/{parameter}" for account 987654321 which return all 3 transfers
+    //GET scheduled transfer "/transfer/{parameter}" returns transactions where the parameter is present as
+    // either To or From Account Number
     @RequestMapping(value = "/transfers/{id}", method = RequestMethod.GET)
     public List<ScheduledTransfer> getScheduledTransfersByAccountNumber(@PathVariable("id") String id){
 
@@ -53,15 +50,12 @@ public class ScheduledTransferController {
     }
 
 
-
-
-    //PUT/UPDATE scheduled transfer allowing to update 'memo', 'start date', 'transfer amount', via confimation number -ID
+    //PUT/UPDATE scheduled transfer  via confimation number -ID
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @PutMapping("/transfers/{id}")
     public String updateScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
-        //prevents updating transfers that are passed date
+        //prevents updating transfers to a past date
         if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
-
 
             scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
             return "Scheduled Transfer UUID :" + id + " has been updated";
@@ -75,46 +69,28 @@ public class ScheduledTransferController {
 
     }
 
-
-
-
     //DELETE scheduled transfer as long as the date is in the future
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @DeleteMapping("/transfers/{id}")
-    public String deleteScheduleTransfer(@PathVariable("id") UUID id){
+    public String deleteScheduleTransfer(@PathVariable("id") UUID id) throws ExceptionUUIDNotFound{
 
-        String response = null;
-        try {
+            String response = null;
+            try {
 
-            scheduledTransferService.deleteByUUID(id);
-            response ="Confirmation Number: " + id + "has been deleted";
-        } catch(ExceptionUUIDNotFound e){
-            response = "Confirmation Number Not Found";
+                scheduledTransferService.deleteByUUID(id);
+                response ="Confirmation Number: " + id + "has been deleted";
+            } catch(ExceptionUUIDNotFound e){
+                response = "Confirmation Number Not Found";
+            }
+            return response;
         }
-        return response;
-    }
 
 
     //TODO Offer a soft delete method as alt to delete.
-    //SOFT DELETE for transfer via confirmation number - action 'Cancel' isCancel Boolean
+    //SOFT DELETE METHOD would be a good alternative to DELETE
+    // via confirmation number - action 'Cancel' isCancel Boolean
     //WILL need to add additional column in table to soft delete, ALTER TABLE
-//    @ResponseStatus(code = HttpStatus.ACCEPTED)
-//    @PutMapping("/transfers/{id}")
-//    public String softDeleteScheduleTransfer(@PathVariable("id") UUID id, @Valid @RequestBody ScheduledTransfer updateTransfer){
-//        //prevents updating transfers that are passed date
-//          if(updateTransfer.getTransferDate().isAfter(LocalDate.now())) {
-//
-//
-//            scheduledTransferService.updateScheduledTransferByUUID(updateTransfer, id);
-//            return "Scheduled Transfer UUID :" + id + " has been deleted";
-//
-//          }if(updateTransfer.getTransferDate().isBefore(LocalDate.now())){
-//              return "Delete error, you cannot update a transfer date to a date that has already passed";
-//
-//          } else {
-//            return "Delete Error";
-//          }
-//        }
+
 
 
 }

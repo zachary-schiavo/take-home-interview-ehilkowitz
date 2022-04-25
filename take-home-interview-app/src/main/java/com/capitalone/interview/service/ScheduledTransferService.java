@@ -18,9 +18,6 @@ import java.util.UUID;
 @Service
 public class ScheduledTransferService {
 
-    private UUID id;
-    private String toAccountNumber;
-    private String fromAccountNumber;
 
     @Resource
     ScheduledTransferRepository transfersRepository;
@@ -42,7 +39,7 @@ public class ScheduledTransferService {
 
     }
 
-
+    //will return List<scheduledtransfers> if ToAccount OR FromAccount match
     public List<ScheduledTransfer> getScheduledTransfersBy(String id){
 
         return transfersRepository.getByToAccountNumberOrFromAccountNumber(id, id);
@@ -53,21 +50,14 @@ public class ScheduledTransferService {
 
     public ScheduledTransfer updateScheduledTransferByUUID(ScheduledTransfer updateTransfer, UUID id) {
 
+
         return transfersRepository.save(updateTransfer);
 
     }
 
 
-
-//    public ScheduledTransfer findScheduledTransferByUUID(UUID id){
-//        return updateRepository.findByUUID(id);
-//    }
-
-
-    //ADD logic for not allowing past date scheduled transfers from being deleted.
-
+    //Delete by UUID
     public void deleteByUUID(UUID id) throws ExceptionUUIDNotFound {
-        //logic for date
 
         updateRepository.deleteById(id);
 
