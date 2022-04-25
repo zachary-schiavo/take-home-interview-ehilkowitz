@@ -2,6 +2,7 @@ package com.capitalone.interview.converter;
 
 import com.capitalone.interview.domain.ScheduledTransfer;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
+import com.capitalone.interview.model.UpdateScheduledTransferRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -20,4 +21,13 @@ public class CreateScheduledTransferRequestTransferConverter implements Converte
                 .transferDate(source.getTransferDate())
                 .build();
     }
+
+    public ScheduledTransfer updateConvert(UpdateScheduledTransferRequest source){
+        return ScheduledTransfer.builder()
+                .amount(source.getAmount())
+                .memo(source.getMemo())
+                .transferDate(source.getTransferDate())
+                .build();
+    }
+
 }

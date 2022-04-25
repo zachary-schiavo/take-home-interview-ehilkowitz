@@ -45,7 +45,7 @@ public class ScheduledTransferService {
 
     public List<ScheduledTransfer> getScheduledTransfersBy(String id){
 
-        return transfersRepository.findAll();
+        return transfersRepository.getByToAccountNumberOrFromAccountNumber(id, id);
 
 
     }
@@ -68,10 +68,9 @@ public class ScheduledTransferService {
 
     public void deleteByUUID(UUID id) throws ExceptionUUIDNotFound {
         //logic for date
-//        ScheduledTransfer transfer = updateRepository.findByUUID(id);
-//        if(transfer.getTransferDate().isAfter(LocalDate.now()) ) {}
 
-        updateRepository.deleteById(id);
+            updateRepository.deleteById(id);
+
 
     }
 
