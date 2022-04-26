@@ -28,7 +28,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
   </component>
-  <component name="RunManager" selected="JUnit.ScheduledTransferControllerTest">
+  <component name="RunManager" selected="JUnit.ScheduledTransferServiceTest">
     <configuration name="SpringBootInterviewTakeHomeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.capitalone.interview.SpringBootInterviewTakeHomeApplication" />
       <module name="take-home-interview-app" />
@@ -119,8 +119,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateScheduledTransferRequestTransferConverterTest" />
         <item itemvalue="JUnit.ScheduledTransferServiceTest" />
+        <item itemvalue="JUnit.CreateScheduledTransferRequestTransferConverterTest" />
         <item itemvalue="JUnit.CucumberRunner" />
         <item itemvalue="Application.SpringBootInterviewTakeHomeApplication" />
         <item itemvalue="JUnit.ScheduledTransferServiceDeleteTest" />

@@ -10,7 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({MockitoExtension.class})
 class ScheduledTransferServiceTest {
@@ -33,7 +38,8 @@ class ScheduledTransferServiceTest {
     @Mock
     ScheduledTransferRepository mockedScheduledTransferRepository;
 
-
+    @Autowired
+    MockMvc mockMvc;
 
     @Test
     void testHappyPathCreateScheduledTransfer() {
@@ -162,11 +168,14 @@ class ScheduledTransferServiceTest {
         assertEquals(request.getMemo(), actual.getMemo());
         assertEquals(expectedUUID, actual.getId());
 
-        when(mockedScheduledTransferRepository.getById(expectedUUID))
-                .thenReturn(scheduledTransfer);
+        String uuidToString = actual.getId().toString();
 
-//        when(mockedScheduledTransferRepository.deleteById(expectedUUID))
-//                .then()
+
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/transfers/" + uuidToString)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
         }
 
