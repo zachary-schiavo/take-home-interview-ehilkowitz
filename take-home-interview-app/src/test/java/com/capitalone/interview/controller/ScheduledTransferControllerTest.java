@@ -129,12 +129,15 @@ class ScheduledTransferControllerTest {
 
         List<ScheduledTransfer> transferList = new ArrayList<>(Arrays.asList(scheduledTransfer_1, scheduledTransfer_2));
 
-        List<ScheduledTransfer> actualList = new ArrayList<>();
+        List<ScheduledTransfer> actualList;
 
-        actualList = mockedScheduledTransferService.getScheduledTransfersBy("123456789");
+        actualList = scheduledTransferController.getScheduledTransfersByAccountNumber("123456789");
 
         when(mockedScheduledTransferService.getScheduledTransfersBy((scheduledTransfer_1).getToAccountNumber()))
                 .thenReturn(transferList);
+
+        when(mockedScheduledTransferService.getScheduledTransfersBy((scheduledTransfer_1).getToAccountNumber()))
+                .thenReturn(actualList);
 
 
 //      HAVING TROUBLE IMPLEMENTING UNIT TESTING
