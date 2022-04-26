@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 
 //Repository Interface for our Domain Model 'ScheduledTransfers'
@@ -12,9 +13,12 @@ import java.util.List;
 
 
 @Repository
-public interface ScheduledTransferRepository extends JpaRepository<ScheduledTransfer, Long> {
+public interface ScheduledTransferRepository extends JpaRepository<ScheduledTransfer, UUID> {
 
     List<ScheduledTransfer> getByToAccountNumberOrFromAccountNumber(String toAccountNumber, String fromAccountNumber);
+
+    //delete by confirmation number
+    void deleteById(UUID id);
 
 
 }

@@ -5,7 +5,6 @@ import com.capitalone.interview.exception.ConversionException;
 import com.capitalone.interview.exception.ExceptionUUIDNotFound;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
-import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,7 @@ public class ScheduledTransferService {
     @Resource
     ConversionService conversionService;
 
-    @Resource
-    ScheduledTransferUpdateRepository updateRepository;
+
 
     public ScheduledTransfer createScheduledTransfer(CreateScheduledTransferRequest request) {
 
@@ -47,7 +45,7 @@ public class ScheduledTransferService {
 
     }
 
-
+    //Update Scheduled Transfer
     public ScheduledTransfer updateScheduledTransferByUUID(ScheduledTransfer updateTransfer, UUID id) {
 
 
@@ -59,7 +57,7 @@ public class ScheduledTransferService {
     //Delete by UUID
     public void deleteByUUID(UUID id) throws ExceptionUUIDNotFound {
 
-        updateRepository.deleteById(id);
+        transfersRepository.deleteById(id);
 
 
     }

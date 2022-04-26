@@ -7,9 +7,7 @@ import com.capitalone.interview.exception.ExceptionUUIDNotFound;
 import com.capitalone.interview.model.CreateScheduledTransferRequest;
 import com.capitalone.interview.model.CreateScheduledTransferResponse;
 import com.capitalone.interview.repository.ScheduledTransferRepository;
-import com.capitalone.interview.repository.ScheduledTransferUpdateRepository;
 import com.capitalone.interview.service.ScheduledTransferService;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +25,7 @@ public class ScheduledTransferController {
 
     private ScheduledTransferRepository scheduledTransferRepository;
 
-    private ScheduledTransferUpdateRepository updateRepository;
+
 
 
     //CREATE scheduled transfer
@@ -52,7 +50,7 @@ public class ScheduledTransferController {
     }
 
 
-    //PUT/UPDATE scheduled transfer  via confimation number -ID
+    //PUT/UPDATE scheduled transfer  via confirmation number -ID
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     @PutMapping("/transfers/{id}")
     public String updateScheduleTransfer(@PathVariable("id") UUID id, @RequestBody ScheduledTransfer updateTransfer) throws ConversionException {
@@ -76,15 +74,13 @@ public class ScheduledTransferController {
     @DeleteMapping("/transfers/{id}")
     public String deleteScheduleTransfer(@PathVariable("id") UUID id) throws ExceptionUUIDNotFound{
 
-            String response = null;
-//        if(id == null || updateTransfer.getId() == null){
-//            throw new ExceptionUUIDNotFound("Confirmation Number not found");
+            String response;
             try {
 
                 scheduledTransferService.deleteByUUID(id);
                 response ="Confirmation Number: " + id + "has been deleted";
             } catch(ExceptionUUIDNotFound e){
-                response = "Confirmation Number Not Found";
+                throw new ExceptionUUIDNotFound("Confirmation Number " + "Not Found.");
             }
             return response;
         }
